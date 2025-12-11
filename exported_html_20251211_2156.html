@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Basic Meta Tags -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Online HTML Viewer: Real-Time Editor & Live Preview</title>
+
+<!-- Author -->
+<meta name="author" content="OnlineHTMLViewer">
+
+
+
+<meta name="description" content="Instantly edit & preview HTML/CSS with our real-time Online HTML Viewer. Features live updates, syntax highlighting, auto-complete & file options. Free & fast!">
+
+
+<meta name="keywords" content="html viewer, online html editor, live html preview, css viewer, web development tool, code snippet tester">
+
+<!-- SEO & Indexing -->
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://onlinehtmlviewer.com/"> 
+
+
+<meta property="og:title" content="Online HTML Viewer: Real-Time Editor & Live Preview">
+<meta property="og:description" content="Instantly edit & preview HTML/CSS with our real-time Online HTML Viewer. Features live updates, syntax highlighting, auto-complete & file options. Free & fast!">
+<meta property="og:image" content="https://onlinehtmlviewer.com/assets/images/social-preview.png"> 
+<meta property="og:url" content="https://onlinehtmlviewer.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Online HTML Viewer">
+<meta property="og:locale" content="en_US">
+
+
+<meta name="twitter:card" content="summary_large_image"> 
+<meta name="twitter:title" content="Online HTML Viewer: Real-Time Editor & Live Preview">
+<meta name="twitter:description" content="Instantly edit & preview HTML/CSS with our real-time Online HTML Viewer. Features live updates, syntax highlighting, auto-complete & file options. Free & fast!">
+<meta name="twitter:image" content="https://onlinehtmlviewer.com/assets/images/social-preview.png">
+<meta name="twitter:url" content="https://onlinehtmlviewer.com/">
+
+
+<!-- Additional SEO Meta Tags -->
+<meta name="application-name" content="Online HTML Viewer">
+<meta name="apple-mobile-web-app-title" content="HTML Viewer"> <!-- Shorter name for iOS home screen icon -->
+<meta name="theme-color" content="#1e1e1e"> <!-- Theme color for browser UI (matches dark theme?) -->
+<meta name="msapplication-TileColor" content="#1e1e1e"> <!-- Tile color for Windows pinned sites -->
+<!-- yandex indexing -->
+<meta name="yandex-verification" content="8e531b1a978d25d6" />
+
+<!-- Bing webmaster  -->
+<meta name="msvalidate.01" content="C6F2ADC202E64BADABE833B6879D5D27" />
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "WebApplication",
+"name": "Online HTML Viewer",
+"url": "https://onlinehtmlviewer.com/",
+
+"description": "Instantly edit & preview HTML/CSS with our real-time Online HTML Viewer. Features live updates, syntax highlighting, auto-complete & file options. Free & fast!",
+"applicationCategory": "DeveloperApplication",
+"operatingSystem": "Any", // Web apps run on any OS with a browser
+"browserRequirements": "Requires JavaScript", 
+"offers": {
+"@type": "Offer",
+"price": "0", 
+"priceCurrency": "USD"
+},
+
+"featureList": [
+"Real-time HTML preview",
+"Live CSS editing",
+"Syntax highlighting (HTML, CSS)",
+"Code auto-completion",
+"Auto-closing tags",
+"Import HTML files",
+"Export HTML files",
+"Dark theme",
+"Mobile responsive design",
+"Responsive preview pane",
+"Adjustable split-view panels"
+]
+}
+</script>
+
+<!-- Favicon & Icons -->
+<link rel="icon" href="assets/images/fav.png" type="image/png"> 
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<!-- CodeMirror CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css" rel="stylesheet"> <!-- Assumes Monokai is your dark theme -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/show-hint.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="assets/style.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-70CCF4S79C"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-70CCF4S79C');
+</script>
+</head>
+<body>
+<!-- Skeleton Loader -->
+<div class="skeleton-loader" id="skeletonLoader">
+<div class="skeleton-header"></div>
+<div class="skeleton-content">
+<div class="skeleton-sidebar">
+<div class="skeleton-sidebar-header"></div>
+<div class="skeleton-sidebar-item"></div>
+<div class="skeleton-sidebar-item"></div>
+<div class="skeleton-sidebar-item"></div>
+<div class="skeleton-sidebar-item"></div>
+</div>
+<div class="skeleton-main">
+<div class="skeleton-editor">
+<div class="skeleton-line"></div>
+<div class="skeleton-line"></div>
+<div class="skeleton-line"></div>
+<div class="skeleton-line"></div>
+</div>
+<div class="skeleton-preview">
+<div class="skeleton-line"></div>
+<div class="skeleton-line"></div>
+<div class="skeleton-line"></div>
+<div class="skeleton-line"></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Mobile Sidebar Toggle Button -->
+<button class="toggle-sidebar" id="toggleSidebar" aria-label="Toggle Sidebar Menu" aria-expanded="false">
+<i class="fas fa-bars" aria-hidden="true"></i>
+<span class="visually-hidden">Toggle Sidebar</span>
+</button>
+
+<!-- Sidebar Overlay (for mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay" role="presentation"></div>
+
+<div class="container-fluid p-0">
+<div class="row g-0">
+<!-- Sidebar -->
+<div class="col-auto sidebar" id="sidebar" role="navigation" aria-label="Main Navigation">
+<div class="sidebar-header">
+<i class="fas fa-code me-2" aria-hidden="true"></i>
+<span>Online HTML Viewer</span>
+<button class="d-md-none text-white border-0 bg-transparent close-btn" id="closeSidebar" aria-label="Close Sidebar">
+<i class="fas fa-times" aria-hidden="true"></i>
+<span class="visually-hidden">Close</span>
+</button>
+</div>
+<div class="sidebar-content">
+<button class="sidebar-button" id="previewFullBtn" aria-label="Preview Full Page">
+<i class="far fa-eye" aria-hidden="true"></i> Fullscreen Preview
+</button>
+<button class="sidebar-button" id="clearBtn" aria-label="Clear Editor Content">
+<i class="far fa-trash-alt" aria-hidden="true"></i> Clear
+</button>
+<button class="sidebar-button" id="importBtn" aria-label="Import HTML File">
+<i class="far fa-folder-open" aria-hidden="true"></i> Import
+</button>
+<button class="sidebar-button" id="exportBtn" aria-label="Export HTML File">
+<i class="far fa-save" aria-hidden="true"></i> Export
+</button>
+</div>
+<div class="sidebar-footer">
+<button class="sidebar-footer-button" id="aboutBtn" aria-label="About HTML Viewer">
+<i class="far fa-question-circle" aria-hidden="true"></i> About
+</button>
+<div class="copyright mt-2" role="contentinfo">
+© <span id="copyrightYear"></span> onlinehtmlviewer.com
+</div>
+</div>
+</div>
+
+
+
+<!-- Main Content -->
+<main class="col main-content" role="main">
+<!-- SEO Optimized Main Heading -->
+<h1 class="main-heading visually-hidden">Online HTML Viewer – Code, Edit, and See Changes Live </h1>
+
+<div class="seo-content visually-hidden" >
+<p>
+Ever needed to test a quick HTML or CSS snippet but didn't want to set up a whole project? That's where this Online HTML Viewer comes in handy. It's the perfect solution when you want to experiment with code on the fly. You can write HTML, CSS, and even JavaScript right in your browser and see the output update instantly. No setup. No downloads. It's literally plug and play.
+</p>
+<p>
+The split view is particularly useful – code on one side, results on the other. Super clean, super efficient. Sometimes you just want to try a weird layout idea or debug a sticky element without opening VS Code. This tool saves you from overkill. You can start fresh or even upload your own HTML file. It acts like a lightweight HTML editor or compiler, and when you're done, you can export the whole thing.
+</p>
+<p>
+Learning HTML? This is gold. Fixing a bug during a client call? Lifesaver. Want to test how a tag behaves without digging through a full site? It's perfect. Honestly, for anyone building small web projects or experimenting with front-end stuff, this free tool is a solid, no-fuss solution. Why over complicate things when all you need is a browser tab?
+</p>
+</div>
+
+
+<!-- Mobile Header for small screens -->
+<div class="d-md-none mobile-header" role="banner">
+Online HTML Viewer
+</div>
+
+<!-- Mobile Quick Action Toolbar -->
+<div class="btn-toolbar" role="toolbar" aria-label="Quick Actions">
+<div class="top-row">
+<button class="btn btn-sm btn-outline-secondary" id="mobilePreviewBtn" aria-label="Preview">
+<i class="far fa-eye" aria-hidden="true"></i> Preview
+</button>
+<button class="btn btn-sm btn-outline-secondary" id="mobileClearBtn" aria-label="Clear">
+<i class="far fa-trash-alt" aria-hidden="true"></i> Clear
+</button>
+</div>
+<div class="bottom-row">
+<button class="btn btn-sm btn-outline-secondary" id="mobileImportBtn" aria-label="Import">
+<i class="far fa-folder-open" aria-hidden="true"></i> Import
+</button>
+<button class="btn btn-sm btn-outline-secondary" id="mobileExportBtn" aria-label="Export">
+<i class="far fa-save" aria-hidden="true"></i> Export
+</button>
+</div>
+</div>
+
+<div class="row g-0 h-100 split-view">
+<!-- HTML Input Area -->
+<div class="split-panel editor-panel" role="region" aria-label="Code Editor">
+<div class="editor-container">
+<div id="codeEditor" contenteditable="true" spellcheck="false" aria-label="HTML Code Editor"></div>
+<textarea id="htmlInput" placeholder="Enter your HTML code here..." style="display: none;" aria-hidden="true"></textarea>
+</div>
+</div>
+
+<!-- Preview Area -->
+<div class="split-panel preview-panel" role="region" aria-label="Preview">
+<div class="preview-container">
+<iframe id="previewFrame" style="width: 100%; height: 100%; border: none;" title="HTML Preview" aria-label="Live Preview of HTML Code"></iframe>
+</div>
+</div>
+</div>
+
+<!-- About Modal -->
+<div id="aboutModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="modalTitle" class="text-center">Fast, Simple HTML Editing Online</h2>
+<button class="modal-close" id="closeModal" aria-label="Close Modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-nav">
+<a href='/features'>Features</a>
+<a href='/about'>About</a>
+<a href='/contact'>Contact</a>
+<a href='/privacy-policy'>Privacy Policy</a>
+<a href='/terms-of-service'>Terms of Service</a>
+</div>
+<div class="modal-body">
+<!-- Simplified Features Summary -->
+<div id="modal-features-summary">
+<h2>Key Features</h2>
+<p>This free online HTML viewer helps you write and preview HTML and CSS quickly. It's made for beginners and experienced users alike.</p>
+<ul>
+<li><strong>Instant Preview:</strong> See your changes live as you type.</li>
+<li><strong>Editor Tools:</strong> Get basic features like syntax highlight, auto-complete, and tag hints.</li>
+<li><strong>Side-by-Side View:</strong> Write HTML and CSS in one place without switching tabs.</li>
+<li><strong>File Options:</strong> Open files from your device, save your work with a timestamp, and pick up where you left off.</li>
+
+</ul>
+<p><em><a href='/features'>See all features</a></em></p>
+</div>
+
+<div id="modal-why-use">
+<h2>How People Use It</h2>
+<p>This tool fits a range of tasks, like:</p>
+<ul>
+<li><strong>Testing Layouts:</strong> Try ideas quickly without setting up anything.</li>
+<li><strong>Learning:</strong> Practice HTML and CSS and see results right away.</li>
+<li><strong>Code Snippets:</strong> Paste code and check what it does instantly.</li>
+<li><strong>Quick Edits:</strong> Fix or tweak HTML without heavy software.</li>
+<li><strong>Small Projects:</strong> Build basic pages straight from your browser.</li>
+</ul>
+<p>It works right in your browser. No downloads or setup needed.</p>
+<p><strong>To start:</strong> Type your code on the left. The result shows up on the right.</p>
+</div>
+
+<p class="text-center mt-3"><em>Want to know more? <a href='/about'>Visit the About page</a>.</em></p>
+</div>
+
+
+</div>
+
+
+</div>
+</div>
+</main>
+</div>
+
+
+
+
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.5/split.min.js"></script>
+<!-- CodeMirror JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+<!-- CodeMirror Addons -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closetag.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/search/match-highlighter.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/search/searchcursor.min.js"></script>
+<!-- Add hint addons -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/show-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/css-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/html-hint.min.js"></script>
+<script src="assets/main.js"> </script>
+</body>
+</html>
